@@ -6,6 +6,19 @@
 
 using namespace std;
 
+bool lerOpcao(int &opcao) {
+    cout << "Opcao: ";
+
+    if (!(cin >> opcao)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return false;
+    }
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    return true;
+}
+
 int main() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
     system("chcp 65001 > nul");
@@ -23,10 +36,14 @@ int main() {
         cout << "[4] Remover produto\n";
         cout << "[0] Sair\n";
         cout << "=====================================\n";
-        cout << "Opcao: ";
+
+        if (!lerOpcao(opcao)) {
+            cout << "Entrada invalida!\n";
+            continue;
+        }
 
         switch (opcao) {
-                        case 1: {
+                case 1: {
                 string nome, categoria, fornecedor;
                 float preco;
                 int quantidade, id, validade, dataEntrada;
