@@ -1,137 +1,30 @@
 #include <iostream>
-#include <vector>
-#include <iomanip>
-#include <locale>
+#include "estoque.h"
+
 using namespace std;
-
-class Produto {
-private:
-    string nome;
-    float preco;
-    int quantidade;
-
-public:
-    Produto(string n, float p, int q) {
-        nome = n;
-        preco = p;
-        quantidade = q;
-    }
-
-    string getNome() {
-        return nome;
-    }
-
-    void mostrar() {
-        cout << nome 
-             << " - preço: R$" 
-             << fixed << setprecision(2) << preco 
-             << " - quantidade: " 
-             << quantidade << endl;
-    }
-
-    void adicionar(int q) {
-        quantidade += q;
-    }
-
-    bool remover(int q) {
-        if(q <= quantidade) {
-            quantidade -= q;
-            return true;
-        }
-        return false;
-    }
-};
-
-class Estoque {
-private:
-    vector<Produto> produtos;
-
-public:
-    void adicionarProduto(const Produto& p) {
-        produtos.push_back(p);
-    }
-
-    void listarProdutos() {
-        if(produtos.empty()) {
-            cout << "Estoque vazio!\n";
-            return;
-        }
-
-        for(auto &p : produtos) {
-            p.mostrar();
-        }
-    }
-
-    Produto* buscarProduto(string nome) {
-        for(auto &p : produtos) {
-            if(p.getNome() == nome) {
-                return &p;
-            }
-        }
-        return nullptr;
-    }
-};
 
 int main() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
 
     Estoque estoque;
-    int opcao;
 
-    do {
-        cout << "\n=== SISTEMA DE ESTOQUE ===\n";
-        cout << "1 - Adicionar produto\n";
-        cout << "2 - Listar produtos\n";
-        cout << "3 - Vender produto\n";
-        cout << "0 - Sair\n";
-        cout << "Escolha: ";
-        cin >> opcao;
+    
+    estoque.adicionarProduto("Arroz", 5.99, 100, 1, "Alimentos", "Fornecedor A", 20251231, 20240101);
+    estoque.adicionarProduto("Feijão", 8.50, 200, 2, "Alimentos", "Fornecedor B", 20251231, 20240101);
 
-        if(opcao == 1) {
-            string nome;
-            float preco;
-            int qtd;
+    estoque.listarProdutos();
 
-            cout << "Nome: ";
-            cin >> nome;
+    const Produto* p = estoque.buscarPorId(1);
 
-            cout << "Preço: ";
-            cin >> preco;
+    if (p != nullptr) {
+        cout << "\nACHOU: " << *p << endl;
+    } else {
+        cout << "\nNAO ACHOU\n";
+    }
 
-            cout << "Quantidade: ";
-            cin >> qtd;
+    estoque.removerProduto(2);
 
-            estoque.adicionarProduto(Produto(nome, preco, qtd));
-        }
-
-        else if(opcao == 2) {
-            estoque.listarProdutos();
-        }
-
-        else if(opcao == 3) {
-            string nome;
-            int qtd;
-
-            cout << "Nome do produto: ";
-            cin >> nome;
-
-            Produto* p = estoque.buscarProduto(nome);
-
-            if(p != nullptr) {
-                cout << "Quantidade a vender: ";
-                cin >> qtd;
-
-                if(p->remover(qtd)) {
-                    cout << "Venda realizada!\n";
-                } else {
-                    cout << "Estoque insuficiente!\n";
-                }
-            } else {
-                cout << "Produto não encontrado!\n";
-            }
-        }
-
-    } while(opcao != 0);
+    estoque.listarProdutos();
 
     return 0;
 }
