@@ -1,13 +1,14 @@
 #include "produto.h"
 #include <string>
-#include <iomanip>  
+#include <iomanip>
+#include <iostream>
 
 using namespace std;
 
 //Construtor:
-Produto::Produto(const string& nomw, float prec, int quan, int id,
+Produto::Produto(const string& nome, float prec, int quan, int id,
                  const string& cate, const string& forn, int vali, int data) :
-    nome(nomw), preco(prec), quantidade(quan), id(id),
+    nome(nome), preco(prec), quantidade(quan), id(id),
     categoria(cate), fornecedor(forn), validade(vali), dataEntrada(data) {}
 
 //Getters:
@@ -18,7 +19,7 @@ int Produto::getId() const noexcept { return id; }
 const string& Produto::getCategoria() const noexcept { return categoria; }
 const string& Produto::getFornecedor() const noexcept { return fornecedor; }
 int Produto::getValidade() const noexcept { return validade; }
-int Produto::getDataDeEntrada() const noexcept { return dataEntrada; }
+int Produto::getDataEntrada() const noexcept { return dataEntrada; }
 
 //Setters:
 void Produto::setNome(const string& name) { nome = name; }
@@ -32,21 +33,22 @@ void Produto::setQuantidade(int quan) {
         quantidade = quan;
     }
 }
-void Produto::setId(int id) {
-    if(id > 0) {
-         this->id = id; }
-}
 void Produto::setCategoria(const string& cate) { categoria = cate; }
 void Produto::setFornecedor(const string& forn) { fornecedor = forn; }
 void Produto::setValidade(int vali) { validade = vali; }
-void Produto::setDataDeEntrada(int data) { dataEntrada = data; }
+void Produto::setDataEntrada(int data) { dataEntrada = data; }
 
 ostream& operator<<(ostream& os, const Produto& p) {
     os << "ID: " << p.getId()
-       << " | Nome: " << p.getNome()
-       << fixed << setprecision(2)
-       << " | Preço: " << p.getPreco()
-       << " | Quantidade: " << p.getQuantidade();
+       << " | Nome: " << p.getNome();
+
+    os << " | Preço: " << fixed << setprecision(2) << p.getPreco();
+
+    os << " | Quantidade: " << p.getQuantidade()
+       << " | Categoria: " << p.getCategoria()
+       << " | Fornecedor: " << p.getFornecedor()
+       << " | Validade: " << p.getValidade()
+       << " | Data de entrada: " << p.getDataEntrada();
 
     return os;
 }

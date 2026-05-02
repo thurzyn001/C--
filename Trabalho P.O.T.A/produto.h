@@ -1,7 +1,9 @@
 #ifndef PRODUTO_H
 #define PRODUTO_H
 
+#include <iostream>
 #include <string>
+
 using namespace std;
 
 class Produto {
@@ -26,7 +28,7 @@ public:
     const string& getCategoria() const noexcept;
     const string& getFornecedor() const noexcept;
     int getValidade() const noexcept;
-    int getDataDeEntrada() const noexcept;
+    int getDataEntrada() const noexcept;
 
     void setNome(const string& nomw);
     void setPreco(float prec);
@@ -35,7 +37,7 @@ public:
     void setCategoria(const string& cate);
     void setFornecedor(const string& forn);
     void setValidade(int vali);
-    void setDataDeEntrada(int data);
+    void setDataEntrada(int data);
 
     friend ostream& operator<<(ostream& os, const Produto& p);
 };

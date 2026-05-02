@@ -4,13 +4,8 @@
 
 using namespace std;
 
-void Estoque::adicionarProduto(const string& nome, float preco, int quantidade,
-                               int id, const string& categoria,
-                               const string& fornecedor, int validade, int dataEntrada) {
-
-    produtos.emplace_back(nome, preco, quantidade, id, categoria, fornecedor, validade, dataEntrada);
-
-    cout << "Produto adicionado com sucesso!\n";
+void Estoque::adicionarProduto(const Produto& produto) {
+    produtos.push_back(produto);
 }
 
 void Estoque::listarProdutos() const {
@@ -20,11 +15,7 @@ void Estoque::listarProdutos() const {
     }
 
     for (const auto& p : produtos) {
-        cout << "ID: " << p.getId()
-             << " | Nome: " << p.getNome()
-             << fixed << setprecision(2) <<" | Preço: " << p.getPreco()
-             << " | Quantidade: " << p.getQuantidade()
-             << endl;
+        cout << p << endl;
     }
 }
 
