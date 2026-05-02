@@ -2,11 +2,13 @@
 #include "estoque.h"
 #include <locale>
 #include <limits>
+#include <cstdlib>
 
 using namespace std;
 
 int main() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
+    system("chcp 65001 > nul");
 
     Estoque estoque;
     int opcao;
@@ -14,18 +16,14 @@ int main() {
     do {
         cout << "\n=====================================\n";
         cout << "        SISTEMA DE ESTOQUE          \n";
-        cout << "=====================================\n\n";
-
+        cout << "=====================================\n";
         cout << "[1] Adicionar produto\n";
         cout << "[2] Listar produtos\n";
-        cout << "[3] Buscar produto por ID\n";
+        cout << "[3] Buscar produto\n";
         cout << "[4] Remover produto\n";
-        cout << "[0] Sair\n\n";
-
-        cout << "Escolha uma opção: ";
-        cin >> opcao;
-
-        cout << "\n-------------------------------------\n";
+        cout << "[0] Sair\n";
+        cout << "=====================================\n";
+        cout << "Opcao: ";
 
         switch (opcao) {
                         case 1: {

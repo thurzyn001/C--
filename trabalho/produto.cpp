@@ -39,16 +39,16 @@ void Produto::setValidade(int vali) { validade = vali; }
 void Produto::setDataEntrada(int data) { dataEntrada = data; }
 
 ostream& operator<<(ostream& os, const Produto& p) {
-    os << "ID: " << p.getId()
-       << " | Nome: " << p.getNome();
-
-    os << " | Preço: " << fixed << setprecision(2) << p.getPreco();
-
-    os << " | Quantidade: " << p.getQuantidade()
-       << " | Categoria: " << p.getCategoria()
-       << " | Fornecedor: " << p.getFornecedor()
-       << " | Validade: " << p.getValidade()
-       << " | Data de entrada: " << p.getDataEntrada();
+    os << "\n---------------------------------\n";
+    os << "ID: " << p.getId() << "\n";
+    os << "Nome: " << p.getNome() << "\n";
+    os << "Preco: " << fixed << setprecision(2) << p.getPreco() << "\n";
+    os << "Quantidade: " << p.getQuantidade() << "\n";
+    os << "Categoria: " << p.getCategoria() << "\n";
+    os << "Fornecedor: " << p.getFornecedor() << "\n";
+    os << "Validade: " << p.getValidade() << "\n";
+    os << "Entrada: " << p.getDataEntrada() << "\n";
+    os << "---------------------------------\n";
 
     return os;
 }
