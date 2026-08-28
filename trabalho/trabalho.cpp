@@ -33,6 +33,10 @@ struct Produto {
 };
 
 // ===================== FUNÇÕES AUXILIARES DE DATA =====================
+bool anoBissexto(int ano) {
+    return (ano % 400 == 0) || (ano % 4 == 0 && ano % 100 != 0);
+}
+
 int converterData(const string& entrada) {
     int dia, mes, ano;
     string temp = entrada;
@@ -54,24 +58,50 @@ int converterData(const string& entrada) {
             return -1;
         }
     }
-    
-    if (ano < 2000 || ano > 2100 || mes < 1 || mes > 12 || dia < 1 || dia > 31) {
+
+    // Validação básica
+    if (ano < 2000 || ano > 2100 || mes < 1 || mes > 12 || dia < 1) {
         return -1;
     }
-    
+
+    int diasNoMes[] = {
+        31, // janeiro
+        28, // fevereiro
+        31, // março
+        30, // abril
+        31, // maio
+        30, // junho
+        31, // julho
+        31, // agosto
+        30, // setembro
+        31, // outubro
+        30, // novembro
+        31  // dezembro
+    };
+
+    if (mes == 2 && anoBissexto(ano)) {
+        diasNoMes[1] = 29;
+    }
+
+    if (dia > diasNoMes[mes - 1]) {
+        return -1;
+    }
+
     return ano * 10000 + mes * 100 + dia;
 }
 
 string formatarData(int data) {
     if (data == 0) return "N/A";
+
     int ano = data / 10000;
     int mes = (data % 10000) / 100;
     int dia = data % 100;
-    
+
     stringstream ss;
     ss << setfill('0') << setw(2) << dia << "/"
        << setfill('0') << setw(2) << mes << "/"
        << ano;
+
     return ss.str();
 }
 
@@ -79,7 +109,7 @@ void carregamentoBonito() {
     cout << "\n";
     cout << "╔══════════════════════════════════════════════════════════╗\n";
     cout << "║                                                          ║\n";
-    cout << "║     🌟 SISTEMA DE ESTOQUE - SUPERMERCADO 🌟              ║\n";
+    cout << "║     🌟 SISTEMA DE ESTOQUE - SUPERMERCADO 🌟             ║\n";
     cout << "║                                                          ║\n";
     cout << "║     Grupo 3 - Camile B. e Arthur R.                      ║\n";
     cout << "║     Data: 14/05/2026                                     ║\n";
